@@ -7,9 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WcfService
+namespace WcfChatService
 {
-    using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
@@ -22,7 +21,6 @@ namespace WcfService
             this.SentMessages = new HashSet<Message>();
             this.ReceivedMessages = new HashSet<Message>();
         }
-
         [DataMember]
         public int Id { get; set; }
         [DataMember]
@@ -31,11 +29,8 @@ namespace WcfService
         public string Password { get; set; }
         [DataMember]
         public Status Status { get; set; }
-
-        [DataMember]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> SentMessages { get; set; }
-        [DataMember]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Message> ReceivedMessages { get; set; }
     }

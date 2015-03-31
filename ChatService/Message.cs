@@ -7,12 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WcfService
+using System.Runtime.Serialization;
+namespace WcfChatService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.Serialization;
-
     [DataContract(IsReference = true)]
     public partial class Message
     {
@@ -26,7 +23,6 @@ namespace WcfService
         public System.DateTime Date { get; set; }
         [DataMember]
         public bool Seen { get; set; }
-
         [DataMember]
         public virtual User Sender { get; set; }
         [DataMember]

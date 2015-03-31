@@ -7,9 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WcfService
+namespace WcfChatService
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
@@ -18,6 +17,8 @@ namespace WcfService
         public ChatNetEntities()
             : base("name=ChatNetEntities")
         {
+            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

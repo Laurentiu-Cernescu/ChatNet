@@ -1,26 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel;
 
-namespace WcfService
+namespace WcfChatService
 {
     [ServiceContract(CallbackContract = typeof(ICallback))]
     interface IChatService
     {
+        [OperationContract]
         Response Login(User user);
+        [OperationContract]
         Response Logout(User user);
-
+        [OperationContract]
         Response SendMessage(Message message);
-
+        [OperationContract]
         User[] GetFriends(User user);
-
+        [OperationContract]
         Message[] GetMessages(User owner, User partner);
-
+        [OperationContract]
         Response AddFriend(User from, User to);
-
+        [OperationContract]
         Response RemoveFriend(User from, User to);
+        [OperationContract]
+        Response MarkAsRead(Message message);
+        [OperationContract]
+        int PingService();
     }
 }
