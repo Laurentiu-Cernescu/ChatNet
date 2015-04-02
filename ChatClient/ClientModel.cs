@@ -13,23 +13,27 @@ namespace ChatClient
     {
         ChatServiceClient service;
 
-        public ClientModel()
-        {
-            
-        }
+        public User CurrentUser { get; private set; }
 
-        public void Connect()
+        public ClientModel()
         {
             InstanceContext context = new InstanceContext(this);
 
             service = new ChatServiceClient(context, "NetTcpBinding_IChatService");
         }
 
-        public void PingServer()
+        public Response PingServer()
         {
-            int ping = service.PingService();
+            try
+            {
+                service.PingService();
+            }
+            catch
+            {
+                return Response.Failed;
+            }
 
-            Console.WriteLine(ping);
+            return Response.Succes;
         }
 
         public void Dispose()
@@ -45,6 +49,52 @@ namespace ChatClient
         void IChatServiceCallback.NotifyStatusChange(User user, Status newStatus)
         {
             
+        }
+
+        public Response Login(string username, string password)
+        {
+            CurrentUser = new User()
+                {
+                    Username = username,
+                    Password = password
+                };
+
+            return service.Login(CurrentUser);
+        }
+
+        public Response Register(string username, string password)
+        {
+            return service.Register(new User()
+            {
+                Username = username,
+                Password = password
+            });
+        }
+    
+        public User[] GetFriends()
+        {
+            return service.GetFriends(CurrentUser);
+        }
+
+        public Message SendMessage(User to, string message)
+        {
+            var  msg =new Message()
+                {
+                    Date = DateTime.Now,
+                    Sender = CurrentUser,
+                    Receiver = to,
+                    MessageText = message,
+                    Seen = false
+                };
+
+            service.SendMessage(msg);
+
+            return msg;
+        }
+
+        public Message[] GetMessages(User partner)
+        {
+            return service.GetMessages(CurrentUser, partner);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace WcfChatService
         [OperationContract]
         Response Logout(User user);
         [OperationContract]
+        Response Register(User user);
+        [OperationContract]
         Response SendMessage(Message message);
         [OperationContract]
         User[] GetFriends(User user);

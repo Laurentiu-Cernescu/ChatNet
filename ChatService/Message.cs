@@ -7,9 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Runtime.Serialization;
 namespace WcfChatService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.Serialization;
+
     [DataContract(IsReference = true)]
     public partial class Message
     {

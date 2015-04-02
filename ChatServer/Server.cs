@@ -8,6 +8,8 @@ namespace ChatServer
     {
         static void Main(string[] args)
         {
+            ChatService.TestEntityFramework();
+
             ServiceHost service = new ServiceHost(typeof(ChatService), new Uri("net.tcp://localhost:9191/chat/"));
 
             service.Open();

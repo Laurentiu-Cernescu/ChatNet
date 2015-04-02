@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ChatNetModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WcfChatService.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="FriendshipLinks">
           <Key>
             <PropertyRef Name="Id" />
@@ -80,7 +80,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ChatNetModelStoreContainer">
+        <EntityContainer Name="WcfChatServiceStoreContainer">
           <EntitySet Name="FriendshipLinks" EntityType="Self.FriendshipLinks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -101,31 +101,11 @@
             <End Role="FriendshipLinks" EntitySet="FriendshipLinks" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WcfChatService" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="ChatNetEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="FriendshipLinks" EntityType="WcfChatService.FriendshipLink" />
-          <EntitySet Name="Messages" EntityType="WcfChatService.Message" />
-          <EntitySet Name="Users" EntityType="WcfChatService.User" />
-          <AssociationSet Name="ThisUser" Association="WcfChatService.ThisUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="FriendshipLink" EntitySet="FriendshipLinks" />
-          </AssociationSet>
-          <AssociationSet Name="WithUser" Association="WcfChatService.WithUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="FriendshipLink" EntitySet="FriendshipLinks" />
-          </AssociationSet>
-          <AssociationSet Name="FromUser" Association="WcfChatService.FromUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-          <AssociationSet Name="ToUser" Association="WcfChatService.ToUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Message" EntitySet="Messages" />
-          </AssociationSet>
-        </EntityContainer>
         <EntityType Name="FriendshipLink">
           <Key>
             <PropertyRef Name="Id" />
@@ -133,8 +113,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="This" Type="Int32" Nullable="false" />
           <Property Name="With" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PartA" Relationship="WcfChatService.ThisUser" FromRole="FriendshipLink" ToRole="User" />
-          <NavigationProperty Name="PartB" Relationship="WcfChatService.WithUser" FromRole="FriendshipLink" ToRole="User" />
+          <NavigationProperty Name="PartA" Relationship="Self.ThisUser" FromRole="FriendshipLinks" ToRole="Users" />
+          <NavigationProperty Name="PartB" Relationship="Self.WithUser" FromRole="FriendshipLinks" ToRole="Users" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -143,103 +123,122 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="From" Type="Int32" Nullable="false" />
           <Property Name="To" Type="Int32" Nullable="false" />
-          <Property Name="MessageText" Type="String" Nullable="false" MaxLength="256" FixedLength="true" Unicode="true" />
+          <Property Name="MessageText" Type="String" MaxLength="256" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Seen" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Sender" Relationship="WcfChatService.FromUser" FromRole="Message" ToRole="User" />
-          <NavigationProperty Name="Receiver" Relationship="WcfChatService.ToUser" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="Sender" Relationship="Self.FromUser" FromRole="Messages" ToRole="Users" />
+          <NavigationProperty Name="Receiver" Relationship="Self.ToUser" FromRole="Messages" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="SentMessages" Relationship="WcfChatService.FromUser" FromRole="User" ToRole="Message" />
-          <NavigationProperty Name="ReceivedMessages" Relationship="WcfChatService.ToUser" FromRole="User" ToRole="Message" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
         </EntityType>
         <Association Name="ThisUser">
-          <End Type="WcfChatService.User" Role="User" Multiplicity="1" />
-          <End Type="WcfChatService.FriendshipLink" Role="FriendshipLink" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="FriendshipLinks" Type="Self.FriendshipLink" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="FriendshipLink">
+            <Dependent Role="FriendshipLinks">
               <PropertyRef Name="This" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="WithUser">
-          <End Type="WcfChatService.User" Role="User" Multiplicity="1" />
-          <End Type="WcfChatService.FriendshipLink" Role="FriendshipLink" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="FriendshipLinks" Type="Self.FriendshipLink" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="FriendshipLink">
+            <Dependent Role="FriendshipLinks">
               <PropertyRef Name="With" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FromUser">
-          <End Type="WcfChatService.User" Role="User" Multiplicity="1" />
-          <End Type="WcfChatService.Message" Role="Message" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Message">
+            <Dependent Role="Messages">
               <PropertyRef Name="From" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="ToUser">
-          <End Type="WcfChatService.User" Role="User" Multiplicity="1" />
-          <End Type="WcfChatService.Message" Role="Message" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Messages" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Message">
+            <Dependent Role="Messages">
               <PropertyRef Name="To" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="ChatNetEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FriendshipLinks" EntityType="Self.FriendshipLink" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="ThisUser" Association="Self.ThisUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FriendshipLinks" EntitySet="FriendshipLinks" />
+          </AssociationSet>
+          <AssociationSet Name="WithUser" Association="Self.WithUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FriendshipLinks" EntitySet="FriendshipLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FromUser" Association="Self.FromUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="ToUser" Association="Self.ToUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ChatNetModelStoreContainer" CdmEntityContainer="ChatNetEntities">
+        <EntityContainerMapping StorageEntityContainer="WcfChatServiceStoreContainer" CdmEntityContainer="ChatNetEntities">
           <EntitySetMapping Name="FriendshipLinks">
             <EntityTypeMapping TypeName="WcfChatService.FriendshipLink">
               <MappingFragment StoreEntitySet="FriendshipLinks">
-                <ScalarProperty Name="With" ColumnName="With" />
-                <ScalarProperty Name="This" ColumnName="This" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="This" ColumnName="This" />
+                <ScalarProperty Name="With" ColumnName="With" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Messages">
             <EntityTypeMapping TypeName="WcfChatService.Message">
               <MappingFragment StoreEntitySet="Messages">
-                <ScalarProperty Name="Seen" ColumnName="Seen" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="MessageText" ColumnName="Message" />
-                <ScalarProperty Name="To" ColumnName="To" />
-                <ScalarProperty Name="From" ColumnName="From" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="From" ColumnName="From" />
+                <ScalarProperty Name="To" ColumnName="To" />
+                <ScalarProperty Name="MessageText" ColumnName="Message" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Seen" ColumnName="Seen" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="WcfChatService.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

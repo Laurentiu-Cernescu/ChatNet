@@ -21,7 +21,7 @@ namespace WcfChatService
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private int IdField;
+        private bool HasUnreadField;
         
         private string PasswordField;
         
@@ -42,15 +42,15 @@ namespace WcfChatService
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id
+        public bool HasUnread
         {
             get
             {
-                return this.IdField;
+                return this.HasUnreadField;
             }
             set
             {
-                this.IdField = value;
+                this.HasUnreadField = value;
             }
         }
         
@@ -248,6 +248,12 @@ public interface IChatService
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/Logout", ReplyAction="http://tempuri.org/IChatService/LogoutResponse")]
     System.Threading.Tasks.Task<WcfChatService.Response> LogoutAsync(WcfChatService.User user);
     
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/Register", ReplyAction="http://tempuri.org/IChatService/RegisterResponse")]
+    WcfChatService.Response Register(WcfChatService.User user);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/Register", ReplyAction="http://tempuri.org/IChatService/RegisterResponse")]
+    System.Threading.Tasks.Task<WcfChatService.Response> RegisterAsync(WcfChatService.User user);
+    
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/SendMessage", ReplyAction="http://tempuri.org/IChatService/SendMessageResponse")]
     WcfChatService.Response SendMessage(WcfChatService.Message message);
     
@@ -355,6 +361,16 @@ public partial class ChatServiceClient : System.ServiceModel.DuplexClientBase<IC
     public System.Threading.Tasks.Task<WcfChatService.Response> LogoutAsync(WcfChatService.User user)
     {
         return base.Channel.LogoutAsync(user);
+    }
+    
+    public WcfChatService.Response Register(WcfChatService.User user)
+    {
+        return base.Channel.Register(user);
+    }
+    
+    public System.Threading.Tasks.Task<WcfChatService.Response> RegisterAsync(WcfChatService.User user)
+    {
+        return base.Channel.RegisterAsync(user);
     }
     
     public WcfChatService.Response SendMessage(WcfChatService.Message message)

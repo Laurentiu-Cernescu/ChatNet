@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9de8ae2325324f94a3dbff0752777f6c" Name="Diagram1">
-        <EntityTypeShape EntityType="WcfChatService.FriendshipLink" Width="1.5" PointX="4.75" PointY="1.625" />
-        <EntityTypeShape EntityType="WcfChatService.Message" Width="1.5" PointX="10" PointY="1.25" />
-        <EntityTypeShape EntityType="WcfChatService.User" Width="1.5" PointX="7" PointY="1.5" />
-        <AssociationConnector Association="WcfChatService.ThisUser" />
-        <AssociationConnector Association="WcfChatService.WithUser" />
-        <AssociationConnector Association="WcfChatService.FromUser" />
-        <AssociationConnector Association="WcfChatService.ToUser" />
+      <Diagram DiagramId="29b5755928f2415da0eb74eee59e28b9" Name="Diagram1">
+        <EntityTypeShape EntityType="WcfChatService.FriendshipLink" Width="1.5" PointX="8.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WcfChatService.Message" Width="1.5" PointX="8.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WcfChatService.User" Width="1.5" PointX="5.875" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="WcfChatService.ThisUser" ManuallyRouted="false" />
+        <AssociationConnector Association="WcfChatService.WithUser" ManuallyRouted="false" />
+        <AssociationConnector Association="WcfChatService.FromUser" ManuallyRouted="false" />
+        <AssociationConnector Association="WcfChatService.ToUser" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

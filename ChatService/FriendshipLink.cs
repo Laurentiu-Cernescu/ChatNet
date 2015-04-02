@@ -9,7 +9,9 @@
 
 namespace WcfChatService
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class FriendshipLink
     {
         public int Id { get; set; }
