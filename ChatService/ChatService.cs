@@ -151,7 +151,7 @@ namespace WcfChatService
                 foreach (User friend in partA)
                 {
                     var msgs = from msg in context.Messages
-                               where msg.Sender.Id == friend.Id && msg.Receiver.Id == user.Id && !msg.Seen
+                               where msg.Sender.Id == friend.Id && msg.Receiver.Id == dbUser.Id && !msg.Seen
                                select msg;
 
                     int count = msgs.Count();
@@ -169,7 +169,7 @@ namespace WcfChatService
                 foreach (User friend in partB)
                 {
                     var msgs = from msg in context.Messages
-                               where msg.Sender.Id == friend.Id && msg.Receiver.Id == user.Id && !msg.Seen
+                               where msg.Sender.Id == friend.Id && msg.Receiver.Id == dbUser.Id && !msg.Seen
                                select msg;
 
                     int count = msgs.Count();
