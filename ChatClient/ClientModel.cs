@@ -96,5 +96,10 @@ namespace ChatClient
         {
             return service.GetMessages(CurrentUser, partner);
         }
+
+        public void MarkAsRead(Message msg)
+        {
+            service.MarkAsRead(msg);
+        }
     }
 }

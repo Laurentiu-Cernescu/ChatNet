@@ -52,6 +52,8 @@ namespace ChatClient
             if(mData != null && callback != null)
             {
                 callback(mData);
+
+                newMessageIcon.Visible = false;
             }
         }
 

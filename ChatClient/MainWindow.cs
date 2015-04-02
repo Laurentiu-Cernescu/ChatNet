@@ -49,6 +49,11 @@ namespace ChatClient
             foreach(var msg in messages)
             {
                 AddMessage(msg);
+
+                if(!msg.Seen)
+                {
+                    service.MarkAsRead(msg);
+                }
             }
         }
 
