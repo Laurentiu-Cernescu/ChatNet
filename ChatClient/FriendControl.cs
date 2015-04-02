@@ -19,7 +19,7 @@ namespace ChatClient
 
         Action<User> callback;
 
-        User mData;
+        public User DisplayedUser { get; private set; }
 
         public FriendControl()
         {
@@ -49,9 +49,9 @@ namespace ChatClient
 
         void OnClick(Object sender, EventArgs args)
         {
-            if(mData != null && callback != null)
+            if(DisplayedUser != null && callback != null)
             {
-                callback(mData);
+                callback(DisplayedUser);
 
                 newMessageIcon.Visible = false;
             }
@@ -59,7 +59,7 @@ namespace ChatClient
 
         public FriendControl ChangeData(User friend, Action<User> onClick)
         {
-            mData = friend;
+            DisplayedUser = friend;
             callback = onClick;
 
             select.Text = friend.Username;
@@ -67,6 +67,16 @@ namespace ChatClient
             statusIcon.Image = friend.Status == Status.Online ? Resources.online : Resources.offline;
             
             return this;
+        }
+
+        public void ChangeNewMessageStatus(bool newMessage)
+        {
+            newMessageIcon.Visible = newMessage;
+        }
+
+        public void ChangeStatus(Status newStatus)
+        {
+            statusIcon.Image = newStatus == Status.Online ? Resources.online : Resources.offline;
         }
     }
 }

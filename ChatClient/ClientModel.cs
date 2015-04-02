@@ -13,6 +13,9 @@ namespace ChatClient
     {
         ChatServiceClient service;
 
+        public Action<Message> NewMessageAction { get; set; }
+        public Action<User, Status> NotifyStatusChange { get; set; }
+
         public User CurrentUser { get; private set; }
 
         public ClientModel()
@@ -43,12 +46,18 @@ namespace ChatClient
 
         void IChatServiceCallback.NotifyNewMessage(Message message)
         {
-            
+            if(NewMessageAction != null)
+            {
+                NewMessageAction(message);
+            }
         }
 
         void IChatServiceCallback.NotifyStatusChange(User user, Status newStatus)
         {
-            
+            if(NotifyStatusChange != null)
+            {
+                NotifyStatusChange(user, newStatus);
+            }
         }
 
         public Response Login(string username, string password)
@@ -60,6 +69,11 @@ namespace ChatClient
                 };
 
             return service.Login(CurrentUser);
+        }
+
+        public void Logout()
+        {
+            service.Logout(CurrentUser);
         }
 
         public Response Register(string username, string password)
@@ -100,6 +114,20 @@ namespace ChatClient
         public void MarkAsRead(Message msg)
         {
             service.MarkAsRead(msg);
+        }
+
+        public Response AddFriend(string username)
+        {
+            if (String.IsNullOrWhiteSpace(username)) return Response.Failed; 
+
+            return service.AddFriend(CurrentUser, new User() { Username = username });
+        }
+
+        public Response RemoveFriend(string username)
+        {
+            if (String.IsNullOrWhiteSpace(username)) return Response.Failed;
+
+            return service.RemoveFriend(CurrentUser, new User() { Username = username });
         }
     }
 }

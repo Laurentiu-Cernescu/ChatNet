@@ -19,13 +19,11 @@ namespace WcfChatService
 
         ChatNetEntities context;
 
-        Dictionary<int, UserData> loggedUsers;
+        static readonly Dictionary<int, UserData> loggedUsers = new Dictionary<int, UserData>();
 
         public ChatService()
         {
             context = new ChatNetEntities();
-
-            loggedUsers = new Dictionary<int, UserData>();
         }
 
         public Response Login(User user)
@@ -52,7 +50,10 @@ namespace WcfChatService
                 {
                     if(friend.Status == Status.Online)
                     {
-                        loggedUsers[friend.Id].Callback.NotifyStatusChange(dbUser, Status.Online);
+                        if (((ICommunicationObject)loggedUsers[friend.Id].Callback).State == CommunicationState.Opened)
+                        {
+                            loggedUsers[friend.Id].Callback.NotifyStatusChange(dbUser, Status.Online);
+                        }
                     }
                 }
             }
@@ -70,9 +71,14 @@ namespace WcfChatService
                 {
                     if(friend.Status == Status.Online)
                     {
-                        loggedUsers[friend.Id].Callback.NotifyStatusChange(userDataKey.Value.User, Status.Offline);
+                        if (((ICommunicationObject)loggedUsers[friend.Id].Callback).State == CommunicationState.Opened)
+                        {
+                            loggedUsers[friend.Id].Callback.NotifyStatusChange(userDataKey.Value.User, Status.Offline);
+                        }
                     }
                 }
+
+                loggedUsers.Remove(userDataKey.Key);
             }
 
             return Response.Succes;

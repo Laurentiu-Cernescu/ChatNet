@@ -30,11 +30,12 @@
         {
             this.logout = new System.Windows.Forms.Button();
             this.addFriendName = new System.Windows.Forms.TextBox();
-            this.addFriend = new System.Windows.Forms.Button();
+            this.add = new System.Windows.Forms.Button();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.send = new System.Windows.Forms.Button();
             this.friendList = new System.Windows.Forms.FlowLayoutPanel();
             this.messageList = new System.Windows.Forms.FlowLayoutPanel();
+            this.remove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // logout
@@ -57,17 +58,17 @@
             this.addFriendName.Size = new System.Drawing.Size(210, 31);
             this.addFriendName.TabIndex = 1;
             // 
-            // addFriend
+            // add
             // 
-            this.addFriend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addFriend.Font = new System.Drawing.Font("Buxton Sketch", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addFriend.Location = new System.Drawing.Point(13, 97);
-            this.addFriend.Name = "addFriend";
-            this.addFriend.Size = new System.Drawing.Size(210, 31);
-            this.addFriend.TabIndex = 2;
-            this.addFriend.Text = "add friend";
-            this.addFriend.UseVisualStyleBackColor = true;
-            this.addFriend.Click += new System.EventHandler(this.addFriend_Click);
+            this.add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.add.Font = new System.Drawing.Font("Buxton Sketch", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.add.Location = new System.Drawing.Point(13, 97);
+            this.add.Name = "add";
+            this.add.Size = new System.Drawing.Size(100, 31);
+            this.add.TabIndex = 2;
+            this.add.Text = "add";
+            this.add.UseVisualStyleBackColor = true;
+            this.add.Click += new System.EventHandler(this.addFriend_Click);
             // 
             // messageBox
             // 
@@ -80,11 +81,12 @@
             // send
             // 
             this.send.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.send.Font = new System.Drawing.Font("Arimo", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.send.Location = new System.Drawing.Point(677, 526);
             this.send.Name = "send";
             this.send.Size = new System.Drawing.Size(37, 37);
             this.send.TabIndex = 6;
-            this.send.Text = "button3";
+            this.send.Text = ">";
             this.send.UseVisualStyleBackColor = true;
             this.send.Click += new System.EventHandler(this.send_Click);
             // 
@@ -110,16 +112,29 @@
             this.messageList.TabIndex = 8;
             this.messageList.WrapContents = false;
             // 
+            // remove
+            // 
+            this.remove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.remove.Font = new System.Drawing.Font("Buxton Sketch", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.remove.Location = new System.Drawing.Point(123, 98);
+            this.remove.Name = "remove";
+            this.remove.Size = new System.Drawing.Size(100, 31);
+            this.remove.TabIndex = 9;
+            this.remove.Text = "remove";
+            this.remove.UseVisualStyleBackColor = true;
+            this.remove.Click += new System.EventHandler(this.remove_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(727, 575);
+            this.Controls.Add(this.remove);
             this.Controls.Add(this.messageList);
             this.Controls.Add(this.friendList);
             this.Controls.Add(this.send);
             this.Controls.Add(this.messageBox);
-            this.Controls.Add(this.addFriend);
+            this.Controls.Add(this.add);
             this.Controls.Add(this.addFriendName);
             this.Controls.Add(this.logout);
             this.Name = "MainWindow";
@@ -133,10 +148,11 @@
 
         private System.Windows.Forms.Button logout;
         private System.Windows.Forms.TextBox addFriendName;
-        private System.Windows.Forms.Button addFriend;
+        private System.Windows.Forms.Button add;
         private System.Windows.Forms.TextBox messageBox;
         private System.Windows.Forms.Button send;
         private System.Windows.Forms.FlowLayoutPanel friendList;
         private System.Windows.Forms.FlowLayoutPanel messageList;
+        private System.Windows.Forms.Button remove;
     }
 }

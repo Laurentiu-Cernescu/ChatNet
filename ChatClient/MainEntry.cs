@@ -10,6 +10,9 @@ namespace ChatClient
     {
         static ClientModel service;
 
+        public static LoginWindow LoginForm;
+        public static MainWindow MainForm;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -20,7 +23,11 @@ namespace ChatClient
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginWindow(service));
+
+            LoginForm = new LoginWindow(service);
+            MainForm = new MainWindow(service);
+
+            Application.Run(LoginForm);
         }
     }
 }

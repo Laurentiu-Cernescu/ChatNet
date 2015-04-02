@@ -24,8 +24,16 @@ namespace ChatClient
 
             InitializeComponent();
 
+            Config();
+        }
+
+        public void Config()
+        {
             login.Enabled = false;
             register.Enabled = false;
+            
+            username.Enabled = true;
+            password.Enabled = true;
 
             password.TextChanged += CredentialsChanged;
             username.TextChanged += CredentialsChanged;
@@ -81,8 +89,8 @@ namespace ChatClient
                         {
                             Invoke(new MethodInvoker(() =>
                             {
-                                MainWindow mainWindow = new MainWindow(service);
-                                mainWindow.Show();
+                                MainEntry.MainForm.Config();
+                                MainEntry.MainForm.Show();
                                 this.Hide();
                                 (x as Timer).Enabled = false;
                             }));

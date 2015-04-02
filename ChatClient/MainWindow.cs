@@ -26,6 +26,12 @@ namespace ChatClient
             service = serviceRef;
 
             InitializeComponent();
+        }
+
+        public void Config()
+        {
+            service.NewMessageAction = ReceiveNewMessage;
+            service.NotifyStatusChange = ChangeStatus;
 
             logout.Text = service.CurrentUser.Username + logoutText;
 
@@ -75,12 +81,19 @@ namespace ChatClient
 
         private void logout_Click(object sender, EventArgs e)
         {
+            service.Logout();
 
+            MainEntry.LoginForm.Config();
+            MainEntry.LoginForm.Show();
+            this.Hide();
         }
 
         private void addFriend_Click(object sender, EventArgs e)
         {
-
+            if(service.AddFriend(addFriendName.Text) == Response.Succes)
+            {
+                RefreshFriendList();
+            }
         }
 
         private void send_Click(object sender, EventArgs e)
@@ -88,6 +101,96 @@ namespace ChatClient
             var to = sender as FriendControl;
 
             AddMessage(service.SendMessage(selectedFriend, messageBox.Text));
+
+            messageBox.Text = null;
+        }
+
+        public void ReceiveNewMessage(Message message)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() =>
+                    {
+                        if (selectedFriend != null && message.Sender.Username.Trim().Equals(selectedFriend.Username.Trim()))
+                        {
+                            AddMessage(message);
+                        }
+                        else
+                        {
+                            foreach (var control in friendList.Controls)
+                            {
+                                if (control is FriendControl)
+                                {
+                                    FriendControl display = control as FriendControl;
+
+                                    if (display.DisplayedUser.Username.Trim().Equals(message.Sender.Username.Trim()))
+                                    {
+                                        display.ChangeNewMessageStatus(true);
+                                    }
+                                }
+                            }
+                        }
+                    }));
+            }
+            else
+            {
+                if (selectedFriend != null && message.Sender.Username.Trim().Equals(selectedFriend.Username.Trim()))
+                {
+                    AddMessage(message);
+                }
+                else
+                {
+                    foreach (var control in friendList.Controls)
+                    {
+                        if (control is FriendControl)
+                        {
+                            FriendControl display = control as FriendControl;
+
+                            if (display.DisplayedUser.Username.Trim().Equals(message.Sender.Username.Trim()))
+                            {
+                                display.ChangeNewMessageStatus(true);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void ChangeStatus(User user, Status status)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() =>
+                    {
+                        foreach (var control in friendList.Controls)
+                        {
+                            if (control is FriendControl)
+                            {
+                                FriendControl display = control as FriendControl;
+
+                                if (display.DisplayedUser.Username.Trim().Equals(user.Username.Trim()))
+                                {
+                                    display.ChangeStatus(status);
+                                }
+                            }
+                        }
+                    }));
+            }
+            else
+            {
+                foreach (var control in friendList.Controls)
+                {
+                    if (control is FriendControl)
+                    {
+                        FriendControl display = control as FriendControl;
+
+                        if (display.DisplayedUser.Username.Trim().Equals(user.Username.Trim()))
+                        {
+                            display.ChangeStatus(status);
+                        }
+                    }
+                }
+            }
         }
 
         private void AddMessage(Message message)
@@ -110,6 +213,14 @@ namespace ChatClient
 
                     messageList.Controls.Add(msgControl);
                 }
+            }
+        }
+
+        private void remove_Click(object sender, EventArgs e)
+        {
+            if (service.RemoveFriend(addFriendName.Text) == Response.Succes)
+            {
+                RefreshFriendList();
             }
         }
     }
