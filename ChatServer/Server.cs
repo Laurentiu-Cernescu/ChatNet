@@ -10,7 +10,9 @@ namespace ChatServer
         {
             ChatService.TestEntityFramework();
 
-            ServiceHost service = new ServiceHost(typeof(ChatService), new Uri("net.tcp://192.168.1.3:9191/chat/"));
+            var uri = new Uri("net.tcp://192.168.1.3:9191/chat/");
+
+            ServiceHost service = new ServiceHost(typeof(ChatService), uri);
 
             service.Open();
 
