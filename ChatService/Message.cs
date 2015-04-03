@@ -11,24 +11,17 @@ namespace WcfChatService
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-
-    [DataContract(IsReference = true)]
+    
     public partial class Message
     {
-        [DataMember]
         public int Id { get; set; }
         public int From { get; set; }
         public int To { get; set; }
-        [DataMember]
         public string MessageText { get; set; }
-        [DataMember]
         public System.DateTime Date { get; set; }
-        [DataMember]
         public bool Seen { get; set; }
-        [DataMember]
+    
         public virtual User Sender { get; set; }
-        [DataMember]
         public virtual User Receiver { get; set; }
     }
 }
