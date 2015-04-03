@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatClient.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WcfChatService;
-
 using Message = WcfChatService.Message;
 
 namespace ChatClient
@@ -98,9 +98,12 @@ namespace ChatClient
 
         private void send_Click(object sender, EventArgs e)
         {
-            var to = sender as FriendControl;
+            if (!String.IsNullOrWhiteSpace(messageBox.Text))
+            {
+                var to = sender as FriendControl;
 
-            AddMessage(service.SendMessage(selectedFriend, messageBox.Text));
+                AddMessage(service.SendMessage(selectedFriend, messageBox.Text));
+            }
 
             messageBox.Text = null;
         }

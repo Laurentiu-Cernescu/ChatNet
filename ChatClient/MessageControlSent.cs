@@ -16,7 +16,7 @@ namespace ChatClient
         {
             message.MessageText = message.MessageText.TrimEnd(' ');
 
-            date.Text = message.Date.ToString("mm:hh dd:MM:yyyy");
+            date.Text = message.Date.ToString("H:mm dd:MM:yyyy");
             messageLabel.Text = message.MessageText;
 
             int ySize = Convert.ToInt32(Math.Ceiling((message.MessageText.Length / 50.0)));

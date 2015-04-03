@@ -16,7 +16,7 @@ namespace ChatServer
 
             service.Open();
 
-            Console.WriteLine("service started");
+            Console.WriteLine("\nService started at address 192.168.1.3, port 9191\n");
 
             Console.ReadKey();
         }

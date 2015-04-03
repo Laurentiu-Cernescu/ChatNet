@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 namespace WcfChatService
 {
@@ -130,7 +131,10 @@ namespace WcfChatService
 
             if (loggedUsers.TryGetValue(dbReceiver.Id, out receiverUser))
             {
-                receiverUser.Callback.NotifyNewMessage(message);
+                if (((ICommunicationObject)receiverUser.Callback).State == CommunicationState.Opened)
+                {
+                    receiverUser.Callback.NotifyNewMessage(message);
+                }
             }
             
             return Response.Succes;
@@ -281,7 +285,11 @@ namespace WcfChatService
 
         public int PingService()
         {
-            Console.WriteLine("pinged !!!");
+            object outParam = null;
+
+            OperationContext.Current.IncomingMessageProperties.TryGetValue(RemoteEndpointMessageProperty.Name, out outParam);
+
+            Console.WriteLine("user with ip:{0} connected to server", (outParam as RemoteEndpointMessageProperty).Address);
             
             return 0;
         }

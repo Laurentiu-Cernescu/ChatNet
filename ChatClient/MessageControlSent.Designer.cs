@@ -44,7 +44,7 @@
             // 
             // messageLabel
             // 
-            this.messageLabel.BackColor = System.Drawing.Color.LightBlue;
+            this.messageLabel.BackColor = System.Drawing.Color.LightSkyBlue;
             this.messageLabel.Font = new System.Drawing.Font("Buxton Sketch", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.messageLabel.Location = new System.Drawing.Point(73, 30);
             this.messageLabel.Name = "messageLabel";
@@ -57,7 +57,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.LightBlue;
             this.Controls.Add(this.messageLabel);
             this.Controls.Add(this.date);
             this.Name = "MessageControlSent";

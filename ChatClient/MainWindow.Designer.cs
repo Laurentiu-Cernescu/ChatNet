@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.logout = new System.Windows.Forms.Button();
             this.addFriendName = new System.Windows.Forms.TextBox();
             this.add = new System.Windows.Forms.Button();
@@ -52,6 +53,7 @@
             // 
             // addFriendName
             // 
+            this.addFriendName.BackColor = System.Drawing.Color.LightCyan;
             this.addFriendName.Font = new System.Drawing.Font("Buxton Sketch", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addFriendName.Location = new System.Drawing.Point(13, 60);
             this.addFriendName.Name = "addFriendName";
@@ -72,6 +74,7 @@
             // 
             // messageBox
             // 
+            this.messageBox.BackColor = System.Drawing.Color.LightCyan;
             this.messageBox.Font = new System.Drawing.Font("Buxton Sketch", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.messageBox.Location = new System.Drawing.Point(249, 526);
             this.messageBox.Name = "messageBox";
@@ -128,6 +131,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(727, 575);
             this.Controls.Add(this.remove);
             this.Controls.Add(this.messageList);
@@ -137,8 +141,9 @@
             this.Controls.Add(this.add);
             this.Controls.Add(this.addFriendName);
             this.Controls.Add(this.logout);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
-            this.Text = "MainWindow";
+            this.Text = "Chatter";
             this.ResumeLayout(false);
             this.PerformLayout();
 

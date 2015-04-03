@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginWindow));
             this.username = new System.Windows.Forms.TextBox();
             this.login = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,6 +39,7 @@
             // 
             // username
             // 
+            this.username.BackColor = System.Drawing.Color.LightCyan;
             this.username.Font = new System.Drawing.Font("Buxton Sketch", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.username.Location = new System.Drawing.Point(17, 70);
             this.username.Name = "username";
@@ -80,6 +82,7 @@
             // 
             // status
             // 
+            this.status.BackColor = System.Drawing.Color.LightBlue;
             this.status.Font = new System.Drawing.Font("Buxton Sketch", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.status.Location = new System.Drawing.Point(17, 252);
             this.status.Name = "status";
@@ -90,6 +93,7 @@
             // 
             // password
             // 
+            this.password.BackColor = System.Drawing.Color.LightCyan;
             this.password.Font = new System.Drawing.Font("Buxton Sketch", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.password.Location = new System.Drawing.Point(17, 107);
             this.password.Name = "password";
@@ -101,6 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightBlue;
             this.ClientSize = new System.Drawing.Size(234, 310);
             this.Controls.Add(this.password);
             this.Controls.Add(this.status);
@@ -108,8 +113,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.login);
             this.Controls.Add(this.username);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginWindow";
-            this.Text = "LoginWindow";
+            this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 

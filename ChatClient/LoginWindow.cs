@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ChatClient.Properties;
+using System;
 using System.Timers;
 using System.Windows.Forms;
 using WcfChatService;
-
 using Timer = System.Timers.Timer;
 
 namespace ChatClient
@@ -96,7 +96,7 @@ namespace ChatClient
                             }));
                         }
                     }));
-
+                   
                     break;
                 case Response.Failed:
 
