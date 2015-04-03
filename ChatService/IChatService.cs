@@ -3,7 +3,7 @@
 namespace WcfChatService
 {
     [ServiceContract(CallbackContract = typeof(ICallback))]
-    interface IChatService
+    public interface IChatService
     {
         [OperationContract]
         Response Login(User user);
