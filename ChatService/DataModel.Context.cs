@@ -18,6 +18,8 @@ namespace WcfChatService
         public ChatNetEntities()
             : base("name=ChatNetEntities")
         {
+            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
